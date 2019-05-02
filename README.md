@@ -2,47 +2,47 @@
 
 ####General description：
 
-**[1]doorGets 7.0 has a sensitive information disclosure vulnerability in \fileman\php\copyfile.php. A remote unauthenticated attacker can exploit this vulnerability to obtain server-sensitive information.**
+**[1]CVE-2019-11606:doorGets 7.0 has a sensitive information disclosure vulnerability in \fileman\php\copyfile.php. A remote unauthenticated attacker can exploit this vulnerability to obtain server-sensitive information.**
 
-**[2]doorGets 7.0 has a sensitive information disclosure vulnerability in \fileman\php\copydir.php. A remote unauthenticated attacker can exploit this vulnerability to obtain server-sensitive information.**
+**[2]CVE-2019-11607:doorGets 7.0 has a sensitive information disclosure vulnerability in \fileman\php\copydir.php. A remote unauthenticated attacker can exploit this vulnerability to obtain server-sensitive information.**
 
-**[3]doorGets 7.0 has a sensitive information disclosure vulnerability in \fileman\php\renamefile.php. A remote unauthenticated attacker can exploit this vulnerability to obtain server-sensitive information or make the server unserviceable.**
+**[3]CVE-2019-11608:doorGets 7.0 has a sensitive information disclosure vulnerability in \fileman\php\renamefile.php. A remote unauthenticated attacker can exploit this vulnerability to obtain server-sensitive information or make the server unserviceable.**
 
-**[4]doorGets 7.0 has a sensitive information disclosure vulnerability in \fileman\php\movefile.php. A remote unauthenticated attacker can exploit this vulnerability to obtain server-sensitive information or make the server unserviceable.**
+**[4]CVE-2019-11609:doorGets 7.0 has a sensitive information disclosure vulnerability in \fileman\php\movefile.php. A remote unauthenticated attacker can exploit this vulnerability to obtain server-sensitive information or make the server unserviceable.**
 
-**[5]doorGets 7.0 has a sensitive information disclosure vulnerability in \fileman\php\downloaddir.php. A remote unauthenticated attacker can exploit this vulnerability to obtain server-sensitive information.**
+**[5]CVE-2019-11610:doorGets 7.0 has a sensitive information disclosure vulnerability in \fileman\php\downloaddir.php. A remote unauthenticated attacker can exploit this vulnerability to obtain server-sensitive information.**
 
-**[6]doorGets 7.0 has a sensitive information disclosure vulnerability in \fileman\php\download.php. A remote unauthenticated attacker can exploit this vulnerability to obtain server-sensitive information.**
+**[6]CVE-2019-11611:doorGets 7.0 has a sensitive information disclosure vulnerability in \fileman\php\download.php. A remote unauthenticated attacker can exploit this vulnerability to obtain server-sensitive information.**
 
-**[7]doorGets 7.0 has an arbitrary file deletion vulnerability in \fileman\php\deletefile.php.A remote unauthenticated attacker can exploit this vulnerability to delete arbitrary files.**
+**[7]CVE-2019-11612:doorGets 7.0 has an arbitrary file deletion vulnerability in \fileman\php\deletefile.php.A remote unauthenticated attacker can exploit this vulnerability to delete arbitrary files.**
 
-**[8]doorGets 7.0 has a SQL injection vulnerability in \doorgets\app\views\ajax\contactView.php. A remote normal registered user could exploit the vulnerability to obtain database sensitive information.**
+**[8]CVE-2019-11613:doorGets 7.0 has a SQL injection vulnerability in \doorgets\app\views\ajax\contactView.php. A remote normal registered user could exploit the vulnerability to obtain database sensitive information.**
 
-**[9]doorGets 7.0 has a SQL injection vulnerability in \doorgets\app\views\ajax\commentView.php. A remote unauthorized attacker could exploit the vulnerability to obtain database sensitive information.**
+**[9]CVE-2019-11614:doorGets 7.0 has a SQL injection vulnerability in \doorgets\app\views\ajax\commentView.php. A remote unauthorized attacker could exploit the vulnerability to obtain database sensitive information.**
 
-**[10]doorGets 7.0 has an arbitrary file upload vulnerability.A remote normal registered users can use this vulnerability to upload backdoor files to control the server.**
+**[10]CVE-2019-11615:doorGets 7.0 has an arbitrary file upload vulnerability.A remote normal registered users can use this vulnerability to upload backdoor files to control the server.**
 
-**[11]doorGets 7.0 has a sensitive information disclosure vulnerability in /setup/temp/admin.php and /setup/temp/database.php. A remote unauthenticated attacker could exploit this vulnerability to obtain administrator's password.**
+**[11]CVE-2019-11616:doorGets 7.0 has a sensitive information disclosure vulnerability in /setup/temp/admin.php and /setup/temp/database.php. A remote unauthenticated attacker could exploit this vulnerability to obtain administrator's password.**
 
-**[12]doorGets 7.0 has a cross-site request forgery vulnerability in \doorgets\app\requests\user\configurationRequest.php. A remote attacker can exploit this vulnerability to modify the "Google Analytics code".**
+**[12]CVE-2019-11617:doorGets 7.0 has a cross-site request forgery vulnerability in \doorgets\app\requests\user\configurationRequest.php. A remote attacker can exploit this vulnerability to modify the "Google Analytics code".**
 
-**[13]doorGets 7.0 has a default administrator credential vulnerability.A remote attacker can use this vulnerability to gain administrator privileges for the creation and modification of articles.**
+**[13]CVE-2019-11618:doorGets 7.0 has a default administrator credential vulnerability.A remote attacker can use this vulnerability to gain administrator privileges for the creation and modification of articles.**
 
-**[14]doorGets 7.0 has a SQL injection vulnerability in \doorgets\app\requests\user\configurationRequest.php when action=analytics. Remote background administrator privilege user(or a user with permission to manage configuration analytics) could exploit the vulnerability to obtain database sensitive information.**
+**[14]CVE-2019-11619:doorGets 7.0 has a SQL injection vulnerability in \doorgets\app\requests\user\configurationRequest.php when action=analytics. Remote background administrator privilege user(or a user with permission to manage configuration analytics) could exploit the vulnerability to obtain database sensitive information.**
 
-**[15]doorGets 7.0 has a SQL injection vulnerability in \doorGets_CMS_V7.0\doorgets\app\requests\user\modulecategoryRequest.php. Remote background administrator privilege user(or a user with permission to manage modulecategory) could exploit the vulnerability to obtain database sensitive information.**
+**[15]CVE-2019-11620:doorGets 7.0 has a SQL injection vulnerability in \doorGets_CMS_V7.0\doorgets\app\requests\user\modulecategoryRequest.php. Remote background administrator privilege user(or a user with permission to manage modulecategory) could exploit the vulnerability to obtain database sensitive information.**
 
-**[16]doorGets 7.0 has a SQL injection vulnerability in \doorgets\app\requests\user\configurationRequest.php when action=network. Remote background administrator privilege user(or a user with permission to manage configuration network) could exploit the vulnerability to obtain database sensitive information.**
+**[16]CVE-2019-11621:doorGets 7.0 has a SQL injection vulnerability in \doorgets\app\requests\user\configurationRequest.php when action=network. Remote background administrator privilege user(or a user with permission to manage configuration network) could exploit the vulnerability to obtain database sensitive information.**
 
-**[17]doorGets 7.0 has a SQL injection vulnerability in \doorgets\app\requests\user\modulecategoryRequest.php. Remote background administrator privilege user(or a user with permission to manage modulecategory) could exploit the vulnerability to obtain database sensitive information.**
+**[17]CVE-2019-11622:doorGets 7.0 has a SQL injection vulnerability in \doorgets\app\requests\user\modulecategoryRequest.php. Remote background administrator privilege user(or a user with permission to manage modulecategory) could exploit the vulnerability to obtain database sensitive information.**
 
-**[18]doorGets 7.0 has a SQL injection vulnerability in \doorgets\app\requests\user\configurationRequest.php when action=siteweb. Remote background administrator privilege user(or a user with permission to manage configuration siteweb) could exploit the vulnerability to obtain database sensitive information.**
+**[18]CVE-2019-11623:doorGets 7.0 has a SQL injection vulnerability in \doorgets\app\requests\user\configurationRequest.php when action=siteweb. Remote background administrator privilege user(or a user with permission to manage configuration siteweb) could exploit the vulnerability to obtain database sensitive information.**
 
-**[19]doorGets 7.0 has an arbitrary file deletion vulnerability in \doorgets\app\requests\user\configurationRequest.php. Remote background administrator privilege user can exploit this vulnerability to delete arbitrary files.**
+**[19]CVE-2019-11624:doorGets 7.0 has an arbitrary file deletion vulnerability in \doorgets\app\requests\user\configurationRequest.php. Remote background administrator privilege user can exploit this vulnerability to delete arbitrary files.**
 
-**[20]doorGets 7.0 has a SQL injection vulnerability in \doorgets\app\requests\user\emailingRequest.php. Remote background administrator privilege user(or a user with permission to manage emailing) could exploit the vulnerability to obtain database sensitive information.**
+**[20]CVE-2019-11625:doorGets 7.0 has a SQL injection vulnerability in \doorgets\app\requests\user\emailingRequest.php. Remote background administrator privilege user(or a user with permission to manage emailing) could exploit the vulnerability to obtain database sensitive information.**
 
-**[21]doorGets 7.0 has web site physical path leakage vulnerability**
+**[21]CVE-2019-11626:doorGets 7.0 has web site physical path leakage vulnerability**
 
 _ _ _
 
